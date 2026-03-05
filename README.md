@@ -57,6 +57,8 @@ Use this skill when:
 
 3. **Scope**: The agent runs in the target project directory: baseline checks, `check.sh`, OpenRewrite, manual fixes, tests, and report generation.
 
+**Try the skill:** You can test this skill against the [spring-boot-2-to-3-demo](https://github.com/chensoul/spring-boot-2-to-3-demo) repository—a Maven sample on Spring Boot 2.7.18 that covers the main migration scenarios (javax→jakarta, Spring Security, Spring MVC, JUnit 4, legacy config, springdoc, etc.). Clone the demo, point the agent at it, and run the upgrade workflow.
+
 ## Prerequisites
 
 - **Spring Boot 2.7.x**: The project must be on 2.7.x. This skill does not support 2.6 or earlier; upgrade to 2.7.x first or the migration may fail.

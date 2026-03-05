@@ -1,0 +1,4 @@
+interface:
+  display_name: "Spring Boot 2 to 3 Upgrade"
+  short_description: "Guide Spring Boot 2.x to 3.x migration with OpenRewrite."
+  default_prompt: "Use $spring-boot-2-to-3 to migrate this project from Spring Boot 2.x to 3.x safely and incrementally."

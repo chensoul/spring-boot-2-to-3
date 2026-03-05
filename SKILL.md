@@ -53,7 +53,7 @@ If missing, guide user to install or offer to create installation script.
 2. **Verify the project compiles and tests pass** (e.g. `./mvnw -q compile test` or `./gradlew build`). Do not start migration until baseline is green; if there are known failures, document them and get user sign-off before proceeding.
 3. Record current versions for Spring Boot, Spring Cloud, Spring Security, Hibernate, and API doc libs.
 4. **Create safety checkpoints** only after baseline is green. **Run the following git command yourself** (do not ask the user to run it). The **current branch** (e.g. `main`) is already the rollback anchor—no need to create a separate backup branch. Create and switch to a **working branch** for the migration: `git checkout -b upgrade/sb3-<target-version>`. If rollback is needed, switch back to the original branch or compare against it.
-5. Run the check script from this skill’s `scripts/` directory, passing the target project path: `scripts/check-boot-2-to-3.sh <project-dir>` (e.g. from workspace root: `spring-boot-2-to-3/scripts/check-boot-2-to-3.sh <project-dir>`). It captures Boot version hints, `javax` residue, and Springfox usage.
+5. Run the check script from this skill’s `scripts/` directory, passing the target project path: `scripts/check.sh <project-dir>` (e.g. from workspace root: `spring-boot-2-to-3/scripts/check.sh <project-dir>`). It captures Boot version hints, `javax` residue, and Springfox usage.
 6. Save baseline artifacts (`dependency tree`, test summary, startup log) under the `docs/` directory.
 7. If the project ships with a **Dockerfile** (or similar container build), record the current Java base image (e.g. `eclipse-temurin:11-jdk`) so it can be aligned to the target Java version (17 or 21) after the code migration.
 
@@ -88,7 +88,7 @@ Load [references/manual-fix-checklist.md](references/manual-fix-checklist.md) an
 1. Run unit/integration tests.
 2. Start the app and check key health/business endpoints.
 3. Review startup logs for warnings related to migration.
-4. Run `scripts/check-boot-2-to-3.sh` again (with the project path) and compare with baseline (e.g. no remaining `javax`).
+4. Run `scripts/check.sh` again (with the project path) and compare with baseline (e.g. no remaining `javax`).
 5. Summarize remaining risk and follow-up tasks.
 6. If runtime failures appear (`NoSuchMethodError`, `ApplicationContext` load issues), run targeted triage from `references/manual-fix-checklist.md`.
 7. **Generate an upgrade report**: create a file under `docs/` (e.g. `docs/<yyyymmdd>-upgrade-summary.md`) containing: date, original branch (rollback anchor) and working branch, target Boot/Java versions, summary of changes by stage, validation result (compile/test), remaining risks or follow-up items. This gives the user and future readers a single place to see what was done and what to do next.
@@ -110,7 +110,7 @@ Apply as needed during or after stages 2–4; not a sequential step after valida
 
 - **Run all git commands yourself** (branch, commit) as part of the workflow; do not instruct the user to run git. The user should not need to execute any git commands for the migration.
 - Prefer "recipe-first" over ad-hoc hand edits.
-- Use `scripts/check-boot-2-to-3.sh` before and after migration to compare baseline drift.
+- Use `scripts/check.sh` before and after migration to compare baseline drift.
 - Keep migration commits small and thematic; **perform the commits yourself**:
   - Commit A: baseline and build setup (if any)
   - Commit B: OpenRewrite output

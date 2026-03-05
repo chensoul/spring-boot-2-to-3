@@ -1,8 +1,6 @@
 # Spring Boot 2 to 3 Upgrade Skill
 
-This directory is an **AI agent skill** for migrating **Spring Boot 2.7.x** applications to Spring Boot 3.x. Any AI assistant that can read and follow the skill (e.g. in **Cursor**, **Claude Code**, **Windsurf**, or other AI coding tools) will run the workflow automatically: baseline checks, OpenRewrite migration, manual compatibility fixes, validation, and an upgrade report—**without requiring you to run git or migration commands yourself**.
-
-**Scope:** The skill is intended **only for projects already on Spring Boot 2.7.x**. Projects on 2.6 or earlier may upgrade incorrectly or fail; upgrade them to 2.7.x first (and get tests passing), then use this skill for 2.7.x → 3.x.
+An AI agent skill that automates Spring Boot 2.7.x → 3.x migration using OpenRewrite recipes, including baseline checks, recipe migration, manual compatibility fixes, and upgrade reports.
 
 ## What the skill does
 
@@ -38,7 +36,7 @@ spring-boot-2-to-3/
 │   ├── openrewrite-recipes.md   # Maven/Gradle recipes and commands
 │   └── manual-fix-checklist.md  # Post-rewrite manual fix checklist
 ├── scripts/
-│   └── check-boot-2-to-3.sh    # Pre/post check (Boot version, javax, Springfox)
+│   └── check.sh                # Pre/post check (Boot version, javax, Springfox)
 └── agents/             # Optional agent configs
 ```
 
@@ -57,13 +55,13 @@ Use this skill when:
 
 2. **Invoke the workflow**: Ask the assistant to upgrade your project to Spring Boot 3 using the spring-boot-2-to-3 skill (e.g. "Use the spring-boot-2-to-3 skill to upgrade this project to Spring Boot 3" or "Upgrade `./my-app` to Spring Boot 3 with the spring-boot-2-to-3 skill"). The agent will follow the workflow in [SKILL.md](SKILL.md): baseline verification, create working branch, run OpenRewrite, apply manual fixes, validate, and write the report under `docs/`. All git operations (branch, commit) are performed by the agent.
 
-3. **Scope**: The agent runs in the target project directory: baseline checks, `check-boot-2-to-3.sh`, OpenRewrite, manual fixes, tests, and report generation.
+3. **Scope**: The agent runs in the target project directory: baseline checks, `check.sh`, OpenRewrite, manual fixes, tests, and report generation.
 
 ## Prerequisites
 
 - **Spring Boot 2.7.x**: The project must be on 2.7.x. This skill does not support 2.6 or earlier; upgrade to 2.7.x first or the migration may fail.
 - **JDK 17+** is required to run OpenRewrite; if the target is Java 21, the host and CI/image must support Java 21.
-- The check script `scripts/check-boot-2-to-3.sh` uses only common shell tools (grep, find, sed, awk); no extra dependencies.
+- The check script `scripts/check.sh` uses only common shell tools (grep, find, sed, awk); no extra dependencies.
 
 ## References
 
